@@ -8,6 +8,6 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
 	list_display = ['title', 'id']
 	list_display_links = ['title', 'id' ]
-	prepopulated_fields = {'slug':('title',)}
+	# prepopulated_fields = {'slug':('title',)}
 
 	

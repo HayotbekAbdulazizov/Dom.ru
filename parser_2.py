@@ -4,10 +4,24 @@ import time
 
 
 
+#
+globalSoupStatus = requests.get("https://dom.693006.ru/list?object=flat&deal=lease&page=1&search_query=a2d405de888a0d5d1446410364e06b76")
 
-
-globalSoupStatus = requests.get("https://dom.693006.ru/list?object=flat&deal=sell&page=1")
 globalSoup = BeautifulSoup(globalSoupStatus.text, 'html.parser')
+
+allPostsCountSoup = globalSoup.findAll("div", {"class":"filter-period-btn"})
+
+
+allCount = allPostsCountSoup[0].text.split()[1]
+allCount = allCount.replace("(", "")
+allCount = allCount.replace(")", "")
+allCount = int(allCount)
+print(type(allCount))
+print(allCount)
+
+
+
+
 
 
 offerList = globalSoup.findAll("article", {"class": "list-card-desktop"})
@@ -17,16 +31,18 @@ offerList = globalSoup.findAll("article", {"class": "list-card-desktop"})
 
 
 
-for i in offerList[0:2]:
+for i in offerList[0:20]:
     offerTitle = None
     offerPrice = None
     offerPriceCurrency = None
     offerPricePerMeter = None
     offerAddress = None
     aboutApartmentHome = None
-
-
-
+    offerDescription = None
+    offerNear = None
+    videoPlayer = None
+    offerMap = None
+    offerId = None
     
     baseOfferSectionRight = None
     offerSectionLeft = None
@@ -37,6 +53,8 @@ for i in offerList[0:2]:
     detailSoup = BeautifulSoup(detailSoupStatus.text, "html.parser")
     offerTitle = detailSoup.find("h1", {"class":"offer-announce offer-announce"}).text
     
+    offerId = detailSoup.find("span", {"class":"breadcrumbs-current"})
+
     baseOfferSectionRight = detailSoup.find("article", {"class" : "offer-main"})
     offerTitle = baseOfferSectionRight.find("h1", {"class":"offer-announce"}).text
     offerAddress = baseOfferSectionRight.find("div", {"class":"offer-address block offer-address"}).text
@@ -44,24 +62,35 @@ for i in offerList[0:2]:
     aboutApartmentHome = baseOfferSectionRight.find("div", {"class":"table"})
     offerPriceMainContainer = baseOfferSectionRight.find("div", {"class":"offer-price"})
     
+    offerDescription = detailSoup.find("div", {"class":"offer-description"}).text
+
     offerPrice = offerPriceMainContainer.find("span", {"class":"offer-price-cost"}).text
     offerPriceCurrency = offerPriceMainContainer.find("span", {"class":"offer-price-value"}).text
-    offerPricePerMeter = offerPriceMainContainer.find("span", {"class":""})
-
+    offerPricePerMeter = offerPriceMainContainer.find("span", {"class":"offer-price-period text-darkest-grey"}).text
 
 
     offerSectionLeft = detailSoup.find("section", {"class":"offer-section-left grid"})
-    tableCategoriesApartmentHome = offerSectionLeft.find("div", {"class":"table-categoty"}).text
+    offerNear = offerSectionLeft.find("article", {"class":"offer-near"})
+    # tableCategoriesApartmentHome = offerSectionLeft.findAll("div", {"class":"table-categoty"})
+    videoPlayer = offerSectionLeft.find("section", {"class":"offer-info-videoplayer"})
+    offerMap = offerSectionLeft.find("article", {"class":"offer-map"})
+    # print(offerMap)
+    [aboutApartment, aboutHouse] = offerSectionLeft.findAll("div", {"class":"table-categoty"})
     
     
     
     print("title -",offerTitle)
     print("price - ", offerPrice)
-    print("price cur - " , offerPriceCurrency)
-    print("price pm - ", offerPricePerMeter)
-    print("Address - ", offerAddress)
-    print("About apartment   ",tableCategoriesApartmentHome)
-    print()
+    # print("price cur - " , offerPriceCurrency)
+    # print("price pm - ", offerPricePerMeter)
+    # print("Address - ", offerAddress)
+    # print("About apartment   ",aboutApartment.text)
+    # print("About Home  - ", aboutHouse.text)
+    # print("Description - ", offerDescription)
+    # print("Near : ", offerNear.text)
+    # inttt = int(offerId.text.split()[2])
+    # print(inttt)
+    # print(type(inttt))
     print()
     print()
 

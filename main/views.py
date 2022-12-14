@@ -6,35 +6,136 @@ from django.views.generic import TemplateView, DetailView, ListView,  View
 import json
 
 
-# Main Home page
 
 
-# class HomePageView(TemplateView):
-#     template_name = "index.html"
+
+
+
+import requests
+from bs4 import BeautifulSoup
+import time
+
+
+
+# list?object=flat&deal=sell&page=1&search_query=ee1b36e93e7cd7befcc1e1c318f533ac
+
+# globalSoupStatus = requests.get("https://dom.693006.ru/list?object=flat&deal=sell&page=1")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class HomePageView(View):
     def get(self,request):
-        # Post.objects.create(title="Dom1", rich_body=' <article data-v-33a1398b="" data-v-e209088e="" class="list-card-layout content-padding list-card-desktop"><div data-v-33a1398b="" class="list-card flex"><a data-v-33a1398b="" href="/flat/sell/704741?search_query=d635a1f16b6d3559d77d132ef9e6f930" class="list-card-slider block"><div data-v-4eaa29da="" data-v-33a1398b="" class="relative"><div data-v-4eaa29da="" class="list-card-slider-recom flex flex-wrap absolute"><span data-v-934cca2c="" data-v-4eaa29da=""><span data-v-934cca2c="" class="badge badge-photo badge-photo--success"> Собственник </span></span></div> <!----> <article data-v-4eaa29da="" class="splide list-card-slider border-radius splide--fade splide--ltr splide--draggable is-active is-initialized" id="splide31" role="region" aria-roledescription="carousel"><div class="splide__track splide__track--fade splide__track--ltr splide__track--draggable" id="splide31-track" style="padding-left: 0px; padding-right: 0px;" aria-live="polite" aria-atomic="true"><ul class="splide__list" id="splide31-list" role="presentation"><div data-v-2af9e4b8="" data-v-4eaa29da="" class="splide-hover-paginator absolute flex w-100"><div data-v-2af9e4b8="" class="w-100 h-100"></div><div data-v-2af9e4b8="" class="w-100 h-100"></div><div data-v-2af9e4b8="" class="w-100 h-100"></div><div data-v-2af9e4b8="" class="w-100 h-100"></div></div> <li data-v-4eaa29da="" class="splide__slide is-active is-visible" id="splide31-slide01" role="tabpanel" aria-roledescription="slide" aria-label="1 of 4" style="width: calc(100%); height: 225px; transition: opacity 0ms cubic-bezier(0.25, 1, 0.5, 1) 0s;"><img data-v-4eaa29da="" alt="Фото объявления №704741" class="list-card-slider-slide image-cover border-radius" style="" src="https://s.sakh.name/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/70/47/704741/041f087990.jpg" width="700px" height="225px"></li><li data-v-4eaa29da="" class="splide__slide is-next" id="splide31-slide02" role="tabpanel" aria-roledescription="slide" aria-label="2 of 4" style="width: calc(100%); height: 225px; transition: opacity 0ms cubic-bezier(0.25, 1, 0.5, 1) 0s;" aria-hidden="true"><img data-v-4eaa29da="" alt="Фото объявления №704741" class="list-card-slider-slide image-cover border-radius" style="" src="https://s.sakh.name/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/70/47/704741/219e278f39.jpg" width="700px" height="225px"></li><li data-v-4eaa29da="" class="splide__slide" id="splide31-slide03" role="tabpanel" aria-roledescription="slide" aria-label="3 of 4" style="width: calc(100%); height: 225px; transition: opacity 0ms cubic-bezier(0.25, 1, 0.5, 1) 0s;" aria-hidden="true"><img data-v-4eaa29da="" data-splide-lazy="https://s.sakh.name/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/70/47/704741/7667590512.jpg" alt="Фото объявления №704741" class="list-card-slider-slide image-cover border-radius" style="display: none;" width="700px" height="225px"><span class="splide__spinner"></span></li><li data-v-4eaa29da="" class="splide__slide" id="splide31-slide04" role="tabpanel" aria-roledescription="slide" aria-label="4 of 4" style="width: calc(100%); height: 225px; transition: opacity 0ms cubic-bezier(0.25, 1, 0.5, 1) 0s;" aria-hidden="true"><img data-v-4eaa29da="" alt="Фото объявления №704741" class="list-card-slider-slide image-cover border-radius" style="" src="https://s.sakh.name/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/70/47/704741/4c0b762665.jpg" width="700px" height="225px"></li></ul></div><ul class="splide__pagination splide-pagination splide__pagination--ltr" role="tablist" aria-label="Select a slide to show"><li role="presentation"><button class="splide-pagination-page is-active" type="button" role="tab" aria-controls="splide31-slide01" aria-label="Go to slide 1" aria-selected="true"></button></li><li role="presentation"><button class="splide-pagination-page" type="button" role="tab" aria-controls="splide31-slide02" aria-label="Go to slide 2" tabindex="-1"></button></li><li role="presentation"><button class="splide-pagination-page" type="button" role="tab" aria-controls="splide31-slide03" aria-label="Go to slide 3" tabindex="-1"></button></li><li role="presentation"><button class="splide-pagination-page" type="button" role="tab" aria-controls="splide31-slide04" aria-label="Go to slide 4" tabindex="-1"></button></li></ul></article> </div></a> <div data-v-33a1398b="" class="relative w-100"><!----> <div data-v-33a1398b="" class=""><div data-v-33a1398b="" class="list-card-title"><a data-v-33a1398b="" href="/flat/sell/704741?search_query=d635a1f16b6d3559d77d132ef9e6f930" class="link"> 2-к., новостройка, 59 м², этаж: 10/15 </a> <a data-v-33a1398b="" href="/help/price#plus" class="list-card-title-ruble" title="Ставка от 13.12.22 12:03"><svg data-v-33a1398b="" width="17px" height="17px"><use xlink:href="/assets/sprites/offerCard.svg#isPaid"></use></svg></a></div> <div data-v-33a1398b="" class="list-card-address text-darkest-grey flex y-center"> 10 мкр., пр. Мира, 190-А <svg data-v-33a1398b="" width="20px" height="20px" title="Есть на карте" class="list-card-address-map"><use xlink:href="/assets/sprites/offerCard.svg#isMap"></use></svg></div> <div data-v-33a1398b="" class="list-card-price flex y-baseline"><p data-v-33a1398b="" class="list-card-price-cost"> 10&nbsp;500&nbsp;000 </p> <p data-v-33a1398b="" class="list-card-price-value"> руб. </p> <!----> <p data-v-33a1398b="" class="list-card-price-period text-darkest-grey"> 177&nbsp;966 руб./м² </p></div> <div data-v-33a1398b="" class="list-card-text"> Внимание, выгодное предложение!!! Собственник. Теплая, светлая 2х комнатная квартира с раздельными жилыми комнатами. На 10 этаже с красивым видом на горный воздух. Мебель остаётся частично. Рядом удобный паркинг, детские сады, школы, рынок. Обременений… </div> <!----> <div data-v-33a1398b="" class="list-card-stats flex x-end"><div data-v-33a1398b="" class="list-card-stats-id"> № 704741 </div> <div data-v-33a1398b="" title="Дата изменения" class="list-card-stats-date"> 24.11 <!----></div></div></div> <div data-v-33a1398b="" class="list-card-fastMenu absolute flex flex-y"><div data-v-33a1398b="" class="cursor-pointer"><svg data-v-33a1398b="" width="20px" height="20px" class="hover-stroke-orange transition-colors duration-3 stroke-darkest-grey"><use xlink:href="/assets/sprites/offerCard.svg#isNoted"></use></svg></div> <div data-v-33a1398b="" class="cursor-pointer"><svg data-v-33a1398b="" width="20px" height="20px" class="stroke-darkest-grey hover-stroke-red transition-colors duration-3"><use xlink:href="/assets/sprites/offerCard.svg#isHidden"></use></svg></div></div></div></div> <div data-v-33a1398b="" class="list-card-menu"><div data-v-33a1398b="" class="flex list-card-menu-buttons"><a data-v-33a1398b="" href="/flat/sell/704741?search_query=d635a1f16b6d3559d77d132ef9e6f930" class="list-card-contacts flex w-100 y-center x-center btn-fill"> Показать контакты </a> <button data-v-33a1398b="" class="list-card-menuBtn flex x-center y-center border border-solid border-radius border-dark-grey hover-border-light-blue relative"><svg data-v-33a1398b="" width="32px" height="32px" class="list-card-burger"><use xlink:href="/assets/sprites/offerCard.svg#burger"></use></svg> <!----></button></div></div> <!----></article> ')
-        context = {
-        'posts': Post.objects.all(),
-        }		    
-        return render(request, 'index.html', context)
+        pageCount = 1
+
+        for page in range(235):
+
+            globalSoupStatus = requests.get(f"https://dom.693006.ru/list?object=flat&deal=sell&page={pageCount}")
+            # time.sleep(0.3)
+            globalSoup = BeautifulSoup(globalSoupStatus.text, 'html.parser')
+            offerList = globalSoup.findAll("article", {"class": "list-card-desktop"})
+
+            count = 0
+            for i in offerList[0:50]:
+                offerTitle = None
+                offerPrice = None
+                offerPriceCurrency = None
+                offerPricePerMeter = None
+                offerAddress = None
+                aboutApartmentHome = None
+                offerDescription = None
+                offerNear = None
+                videoPlayer = None
+                offerMap = None
+
+                offerId = None
+                
+                baseOfferSectionRight = None
+                offerSectionLeft = None
+                
+                
+                ahrefs = i.find("a")
+                detailSoupStatus = requests.get(f"https://dom.693006.ru{ahrefs['href']}")
+                # time.sleep(0.3)
+                detailSoup = BeautifulSoup(detailSoupStatus.text, "html.parser")
+                offerTitle = detailSoup.find("h1", {"class":"offer-announce offer-announce"}).text
+                
+                baseOfferSectionRight = detailSoup.find("article", {"class" : "offer-main"})
+                offerTitle = baseOfferSectionRight.find("h1", {"class":"offer-announce"}).text
+                offerAddress = baseOfferSectionRight.find("div", {"class":"offer-address block offer-address"}).text
+                offerStatusViews = baseOfferSectionRight.find("div", {"class":"offer-stats"}).text
+                aboutApartmentHome = baseOfferSectionRight.find("div", {"class":"table"})
+                offerPriceMainContainer = baseOfferSectionRight.find("div", {"class":"offer-price"})
+                
+                offerDescription = detailSoup.find("div", {"class":"offer-description"}).text
+
+                offerPrice = offerPriceMainContainer.find("span", {"class":"offer-price-cost"}).text
+                offerPriceCurrency = offerPriceMainContainer.find("span", {"class":"offer-price-value"}).text
+                offerPricePerMeter = offerPriceMainContainer.find("span", {"class":"offer-price-period text-darkest-grey"}).text
+
+
+                offerSectionLeft = detailSoup.find("section", {"class":"offer-section-left grid"})
+                offerNear = offerSectionLeft.find("article", {"class":"offer-near"})
+                # tableCategoriesApartmentHome = offerSectionLeft.findAll("div", {"class":"table-categoty"})
+                videoPlayer = offerSectionLeft.find("section", {"class":"offer-info-videoplayer"})
+                offerMap = offerSectionLeft.find("article", {"class":"offer-map"})
+                [aboutApartment, aboutHouse] = offerSectionLeft.findAll("div", {"class":"table-categoty"})
+                
+                offerId = int(detailSoup.find("span", {"class":"breadcrumbs-current"}).text.split()[2])
+                print("ID", offerId, type(offerId))
+                
+
+            
+
+                try:
+                    Post.objects.update_or_create( offerId=offerId,
+                        defaults={
+                            "title":offerTitle,
+                            "price":300000,
+                            "priceCurrency": offerPriceCurrency,
+                            "pricePerMeter": offerPricePerMeter,
+                            # "city ": "Peter",
+                            "address": offerAddress,
+                            "description": offerDescription,
+                            "body":   f"{aboutApartment}{aboutHouse}"
+                    })
+                    count += 1
+                    print(" ---  Created Or Updated ---", count, pageCount)
+                except Exception as err:
+                    count += 1
+                    print("---  Something went wrong --- ", count , pageCount)
+                    print(err)
+            pageCount += 1
+        return render(request, 'index.html', {"posts":Post.objects.all()})
 
 
 
-# #  For Post details
-# class PostDetailsView(DetailView):
-#     model = Post
-#     template_name  = 'post-details.html'
 
-# # Sorting By category
-# class CategorySortView(DetailView):
-#     model = Category
-#     template_name  = 'category-sort.html'
 
-# # For Updating Posts
-# class PostUpdateView(UpdateView):
-#     model = Post
-#     template_name = "post_update.html"
-#     fields = '__all__'
-#     success_url = '/'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

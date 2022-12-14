@@ -71,6 +71,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'Domru.wsgi.application'
 
 
@@ -129,6 +130,32 @@ CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'staticfiles')) ,
+
+
+
+
+
+
+
+
+"""
+Arenda
+https://dom.693006.ru/flat/lease
+https://dom.693006.ru/list?object=flat&deal=lease&page=1&search_query=a2d405de888a0d5d1446410364e06b76
+for one day
+
+
+
+Sell
+
+
+
+
+
+"""
+
+
+
 
 
 # Default primary key field type
