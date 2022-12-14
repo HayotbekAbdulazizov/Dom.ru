@@ -18,35 +18,38 @@ offerList = globalSoup.findAll("article", {"class": "list-card-desktop"})
 
 
 for i in offerList[0:2]:
-    title = None
-
+    offerTitle = None
     offerPrice = None
     offerPriceCurrency = None
     offerPricePerMeter = None
     offerAddress = None
-
-
-
+    aboutApartmentHome = None
 
 
 
     
-    
-    mainOfferSectionRight = None
+    baseOfferSectionRight = None
+    offerSectionLeft = None
     
     
     ahrefs = i.find("a")
     detailSoupStatus = requests.get(f"https://dom.693006.ru{ahrefs['href']}")
     detailSoup = BeautifulSoup(detailSoupStatus.text, "html.parser")
-    title = detailSoup.find("h1", {"class":"offer-announce offer-announce"}).text
+    offerTitle = detailSoup.find("h1", {"class":"offer-announce offer-announce"}).text
     
-    mainOfferSectionRight = detailSoup.find("article", {"class" : "offer-main"})
-    title = mainOfferSectionRight.find("h1", {"class":"offer-announce"}).text
-    offerAddress = mainOfferSectionRight.find("div", {"class":"offer-address block offer-address"}).text
-    offerStatus = mainOfferSectionRight.find("div", {"class":"offer-stats"})
+    baseOfferSectionRight = detailSoup.find("article", {"class" : "offer-main"})
+    offerTitle = baseOfferSectionRight.find("h1", {"class":"offer-announce"}).text
+    offerAddress = baseOfferSectionRight.find("div", {"class":"offer-address block offer-address"}).text
+    offerStatus = baseOfferSectionRight.find("div", {"class":"offer-stats"}).text
+    aboutApartmentHome = baseOfferSectionRight.find("div", {"class":"table"})
+
+    offerSectionLeft = detailSoup.find("section", {"class":"offer-section-left grid"})
+    tableCategoriesApartmentHome = offerSectionLeft.find("div", {"class":"table-categoty"}).text
+    print("OOO   ",tableCategoriesApartmentHome)
+
     print(offerAddress)
-    print(offerStatus)
-    
+    # print(offerStatus)
+    print(aboutApartmentHome)    
     
     
     
