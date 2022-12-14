@@ -40,21 +40,31 @@ for i in offerList[0:2]:
     baseOfferSectionRight = detailSoup.find("article", {"class" : "offer-main"})
     offerTitle = baseOfferSectionRight.find("h1", {"class":"offer-announce"}).text
     offerAddress = baseOfferSectionRight.find("div", {"class":"offer-address block offer-address"}).text
-    offerStatus = baseOfferSectionRight.find("div", {"class":"offer-stats"}).text
+    offerStatusViews = baseOfferSectionRight.find("div", {"class":"offer-stats"}).text
     aboutApartmentHome = baseOfferSectionRight.find("div", {"class":"table"})
+    offerPriceMainContainer = baseOfferSectionRight.find("div", {"class":"offer-price"})
+    
+    offerPrice = offerPriceMainContainer.find("span", {"class":"offer-price-cost"}).text
+    offerPriceCurrency = offerPriceMainContainer.find("span", {"class":"offer-price-value"}).text
+    offerPricePerMeter = offerPriceMainContainer.find("span", {"class":""})
+
+
 
     offerSectionLeft = detailSoup.find("section", {"class":"offer-section-left grid"})
     tableCategoriesApartmentHome = offerSectionLeft.find("div", {"class":"table-categoty"}).text
-    print("OOO   ",tableCategoriesApartmentHome)
+    
+    
+    
+    print("title -",offerTitle)
+    print("price - ", offerPrice)
+    print("price cur - " , offerPriceCurrency)
+    print("price pm - ", offerPricePerMeter)
+    print("Address - ", offerAddress)
+    print("About apartment   ",tableCategoriesApartmentHome)
+    print()
+    print()
+    print()
 
-    print(offerAddress)
-    # print(offerStatus)
-    print(aboutApartmentHome)    
-    
-    
-    
-    print()
-    print()
     # print(i.find("div", {"class": "list-card-address text-darkest-grey flex y-center"}))
 
 
