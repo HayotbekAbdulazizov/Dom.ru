@@ -10,6 +10,7 @@ import time
 
 globalSoupStatus = requests.get("https://dom.693006.ru/list?object=flat&deal=sell&page=1&search_query=ee1b36e93e7cd7befcc1e1c318f533ac")
 
+print(globalSoupStatus.text)
 globalSoup = BeautifulSoup(globalSoupStatus.text, 'html.parser')
 
 allPostsCountSoup = globalSoup.findAll("div", {"class":"filter-period-btn"})
@@ -18,11 +19,11 @@ allPostsCountSoup = globalSoup.findAll("div", {"class":"filter-period-btn"})
 allCount = allPostsCountSoup[0].text.split()[1]
 allCount = allCount.replace("(", "")
 allCount = allCount.replace(")", "")
-print("CCCCCCC   ", )
+# print("CCCCCCC   ", )
 # print("CCCCCCC   ", allCount = )
-allCount = int(allCount)
-print(type(allCount))
-print(allCount)
+# allCount = int(allCount)
+# print(type(allCount))
+# print(allCount)
 
 
 
