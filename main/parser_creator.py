@@ -27,7 +27,7 @@ def get():
 
         count = 0
         for i in offerList[0:50]:
-            offerTitle = None
+            offerTitle = None   
             offerPrice = None
             offerPricePerMeter = None
             offerAddress = None

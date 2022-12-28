@@ -35,7 +35,7 @@ import time
 
 
 
-class HomePageView(View):
+class HomePageViews(View):
     def get(self,request):
         pageCount = 1
 
@@ -124,6 +124,19 @@ class HomePageView(View):
 
 
 
+
+
+
+
+class HomePageView(View):
+    
+    def get(self,request):
+        posts = Post.objects.all().order_by("-published")[:1]
+
+        context = {
+            "posts":posts
+        }
+        return render(request, "index.html", context)
 
 
 

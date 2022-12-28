@@ -1,3 +1,4 @@
+from tinymce.widgets import TinyMCE
 from django.contrib import admin
 from .models import Post
 
@@ -8,6 +9,8 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
 	list_display = ['title', 'id']
 	list_display_links = ['title', 'id' ]
-	# prepopulated_fields = {'slug':('title',)}
+	prepopulated_fields = {'slug':('title',)}
+	# models.TextField: {'widget': TinyMCE()}
+   
 
 	

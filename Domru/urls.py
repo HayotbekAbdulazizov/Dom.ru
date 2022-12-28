@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
     path('', include('main.urls', namespace='main')),
     path('api/', include('api.urls', namespace='api')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:
