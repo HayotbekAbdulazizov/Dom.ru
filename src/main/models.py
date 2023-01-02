@@ -17,7 +17,7 @@ class Post(models.Model):
 	address = models.CharField("Address", max_length=200, blank=True)
 	description = models.TextField("Description", blank=True)
 	offerId = models.IntegerField("Offer Id", unique=True, blank=True, null=True)
-
+	contacts = models.BooleanField("Contacts", default=False)
 	body = RichTextField("Body" , blank=True)
 	published = models.DateTimeField(auto_now_add=True)
 	source = models.URLField(max_length=200, blank=True)
@@ -30,6 +30,18 @@ class Post(models.Model):
 		ordering = ["-published",]
 		verbose_name_plural = 'Posts'
 
+
+
+
+
+
+class PostImages(models.Model):
+	post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+	image = models.ImageField(upload_to=None, height_field=None, blank=True, null=True)
+	url = models.URLField("Image url", max_length=400, blank=True, null=True)
+
+	def __str__(self):
+		return self.post.offerId
 
 
 

@@ -2,6 +2,7 @@ import os
 from celery import Celery
 from celery.schedules import crontab
 from datetime import timedelta
+import main
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'domru.settings')
@@ -14,9 +15,18 @@ app.autodiscover_tasks()
 
 # заносим таски в очередь
 app.conf.beat_schedule = {
-    'every': { 
-        'task': 'main.tasks.repeat_order_make',
-        "schedule": timedelta(seconds=2) ,
+    # 'every': { 
+    #     'task': 'main.tasks.repeat_order_make',
+    #     # "schedule": crontab(hour=1, minute=6) ,
+    #     'schedule': 360.0,
+    #     "options":{
+            
+    #     }
+    # },                                                           
+    'contacts': { 
+        'task': 'main.tasks.contacts',
+        # "schedule": crontab(hour=1, minute=6) ,
+        'schedule': 50.0,
         "options":{
             
         }

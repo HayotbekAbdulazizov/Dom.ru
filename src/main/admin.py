@@ -1,15 +1,22 @@
-from tinymce.widgets import TinyMCE
 from django.contrib import admin
-from .models import Post
+from .models import Post, PostImages
 
+
+
+class PostImageItem(admin.StackedInline):
+    model = PostImages
+    extra = 5
 
 
 #  Registering main Post model
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-	list_display = ['title', 'id']
+	inlines = [PostImageItem]
+	list_display = ['title', "contacts",'id']
 	list_display_links = ['title', 'id' ]
 	prepopulated_fields = {'slug':('title',)}
    
 
 	
+
+admin.site.register(PostImages)
