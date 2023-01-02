@@ -1,0 +1,39 @@
+{% extends 'wrapper.html' %}
+{% block content %}
+
+    {% for post in object_list %}                    
+                <!-- <div class="card">
+                    <div class="row no-gutters">
+                        <div class="col-sm-12 col-md-4" style="width: 300px;height: 225px;">
+                            <img class="card-img img-fluid w-100 h-100" style="object-fit: cover;" src="https://smartwebgate.com/wp-content/uploads/2021/10/AdobeStock_126016889.jpeg" alt="Suresh Dasari Card">
+                        </div>
+                        <div class="col-sm-7 col-md-7 col-lg-7">
+                            <div class="card-body">
+                                <h5 class="card-title">Suresh Dasari</h5>
+                                <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
+                                <a href="#" class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+
+                <div class="card mb-3" style="">
+                    <div class="row no-gutters">
+                      <div class="col-md-4" style="width: 300px;height: 225px;">
+                        <img src="https://s.sakh.name/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/70/45/704524/6862be0044.jpg" class="card-img" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      {% endfor %}
+               
+
+
+      {% endblock content %}

@@ -1,39 +1,176 @@
-<!-- {% extends 'wrapper.html' %} -->
+{% extends 'wrapper.html' %}
+
+
+
+
 {% block content %}
-
-    {% for post in object_list %}                    
-                <!-- <div class="card">
-                    <div class="row no-gutters">
-                        <div class="col-sm-12 col-md-4" style="width: 300px;height: 225px;">
-                            <img class="card-img img-fluid w-100 h-100" style="object-fit: cover;" src="https://smartwebgate.com/wp-content/uploads/2021/10/AdobeStock_126016889.jpeg" alt="Suresh Dasari Card">
-                        </div>
-                        <div class="col-sm-7 col-md-7 col-lg-7">
-                            <div class="card-body">
-                                <h5 class="card-title">Suresh Dasari</h5>
-                                <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-                                <a href="#" class="btn btn-primary">View Profile</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+{% for post in object_list %}                    
 
 
-                <div class="card mb-3" style="">
-                    <div class="row no-gutters">
-                      <div class="col-md-4" style="width: 300px;height: 225px;">
-                        <img src="https://s.sakh.name/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/70/45/704524/6862be0044.jpg" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-      {% endfor %}
-               
+<div class="card mb-3 offset-md-2 col-md-8">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="https://s.backendservices.ru/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/71/03/710327/84cb3843bb.jpg" class="card-img" alt="...">
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-      {% endblock content %}
+
+
+
+<!-- <div class="card">
+    <div class="row no-gutters">
+        <div class="col-sm-12 col-md-4 col-lg-4 post-image" >
+            <img class="card-img img-fluid w-100 h-100" style="object-fit: cover;" src="https://smartwebgate.com/wp-content/uploads/2021/10/AdobeStock_126016889.jpeg" alt="Suresh Dasari Card">
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7">
+            <div class="card-body">
+                <h5 class="card-title">Suresh Dasari</h5>
+                <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
+                <a href="#" class="btn btn-primary">View Profile</a>
+            </div>
+        </div>
+    </div>
+</div>  -->
+
+
+{% comment %} <div class="card mb-3" style="">
+    <div class="row no-gutters">
+      <div class="col-md-4" >
+        <img src="https://s.sakh.name/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/70/45/704524/6862be0044.jpg" class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+    .owl-prev, .owl-next{
+        transform: scale(2);
+    }
+    .item{
+        padding: 0% !important;
+    }
+
+
+
+
+
+
+
+    /* default styles here for older browsers. 
+   I tend to go for a 600px - 960px width max but using percentages
+*/
+@media only screen and (min-width: 960px) {
+    /* styles for browsers larger than 960px; */
+    .item{
+        padding: 0 !important;
+        height: 400px !important;
+    }
+
+}
+@media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+    .card-img{
+        /* width: 300px;
+        height: 225px;
+        border-radius: 10px; */
+    }
+}
+
+
+@media only screen and (min-width: 2000px) {
+    /* for sumo sized (mac) screens */
+}
+@media only screen and (max-device-width: 480px) {
+   /* styles for mobile browsers smaller than 480px; (iPhone) */
+}
+
+
+@media only screen and (device-width: 768px) {
+   /* default iPad screens */
+}
+
+
+/* different techniques for iPad screening */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+  /* For portrait layouts only */
+  /* .item{
+        padding: 0 !important;
+        height: 300px !important;
+    } */
+    .post-image{
+        width: 300px;
+        height: 225px;
+    }
+
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+  /* For landscape layouts only */
+    .post-image{
+        width: 300px;
+        height: 225px;
+    }
+    body{
+        background-color: red;
+    }
+
+
+}
+</style>
+
+
+
+
+{% endblock content %}

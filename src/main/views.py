@@ -276,7 +276,14 @@ class HomePageView(View):
 
 
  
-class PostDetailView(DetailView):
+class PostDetailView(View):
     # specify the model to use
-    model = Post
-    template_name = "details.html"
+    # model = Post
+    # template_name = "details.html"
+
+    def get(self, request, pk):
+
+        context = {
+            "object_list":Post.objects.all(),
+        }
+        return render(request, "postDetails.html", context)
