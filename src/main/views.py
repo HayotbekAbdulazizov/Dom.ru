@@ -284,6 +284,6 @@ class PostDetailView(View):
     def get(self, request, pk):
 
         context = {
-            "object_list":Post.objects.all(),
+            "object":Post.objects.get(id=pk),
         }
         return render(request, "postDetails.html", context)

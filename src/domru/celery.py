@@ -1,8 +1,10 @@
+from __future__ import absolute_import
 import os
 from celery import Celery
+from django.conf import settings
 from celery.schedules import crontab
-from datetime import timedelta
-import main
+
+
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'domru.settings')
@@ -11,25 +13,39 @@ app = Celery('domru')
 app.config_from_object('django.conf:settings', namespace="CELERY")
 app.autodiscover_tasks()
 
-
-
-# заносим таски в очередь
 app.conf.beat_schedule = {
-    # 'every': { 
-    #     'task': 'main.tasks.repeat_order_make',
-    #     # "schedule": crontab(hour=1, minute=6) ,
-    #     'schedule': 360.0,
-    #     "options":{
-            
-    #     }
-    # },                                                           
-    'contacts': { 
-        'task': 'main.tasks.contacts',
-        # "schedule": crontab(hour=1, minute=6) ,
-        'schedule': 50.0,
-        "options":{
-            
-        }
-    },                                                           
+    # 'multiply-task-crontab': {
+    #     'task': 'multiply_two_numbers',
+    #     'schedule': crontab(hour=7, minute=30, day_of_week=1),
+    #     'args': (16, 16),
+    # },
+    'save_contacts': {
+        'task': 'save_contacts',
+        # 'schedule': 30.0,
+        'schedule': crontab(minute="*/2"),
 
+    },
+
+    'parse_posts': {
+        'task': 'parse_posts',
+        # 'schedule': 30.0,
+        'schedule': crontab(hour="*/2"),
+    },
+
+    'testprint': {
+        'task': 'testprint',
+        'schedule': 2.0,
+
+    },
+    'testprint2': {
+        'task': 'testprint2',
+        'schedule': 3.0,
+
+    },
+    # 'add-every-30-seconds': {
+    #     'task': 'movies.tasks.add',
+    #     'schedule': 30.0,
+    #     'args': (16, 16)
+    # },
 }
+

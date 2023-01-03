@@ -20,6 +20,9 @@ import re
 
 
 
+from celery import shared_task
+
+
 
 
 
@@ -42,14 +45,6 @@ linksDaily = [
     "https://domik65.ru/list?object=house&deal=sell&page=1&search_query=06c025c0cb9efc0285347359d30b4d7e",
     "https://domik65.ru/list?object=business&deal=sell&page=1&search_query=a8fca08f4862252563499075b35225dd"
 ]
-
-
-
-
-
-
-
-
 
 
 
@@ -79,12 +74,30 @@ def countsDetector(link):
 
 
 
+@shared_task(name="testprint")
+def testprint():
+    print("===== TEST print ====")
+    return True
+
+
+@shared_task(name="testprint2")
+def testprint2():
+    print("===== LALALALAAL ====")
+    return True
+
+
+
+
+
+
+
 
 
 
 
 # @app.task #регистриуем таску
-def repeat_order_make():
+@shared_task(name="parse_posts")
+def parse_posts():
 
     for linkDaily in linksAll:
         print()
@@ -210,25 +223,13 @@ def repeat_order_make():
 
 
 
-
-
-
-
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 
+@shared_task(name="save_contacts")
+def save_contacts():
 
-
-
-
-
-@app.task #регистриуем таску
-def contactsss():
-
-
-
-    # Driver initialized
     chrome_optio = webdriver.ChromeOptions()
     chrome_optio.add_argument("--headless")
     chrome_optio.add_argument("window-size=1920,1080")
@@ -236,8 +237,6 @@ def contactsss():
     # driver = webdriver.Chrome(options=chrome_optio)
 
 
-
-    
 
     # Authorization
     driver.get("https://domik65.ru/")    
@@ -258,43 +257,42 @@ def contactsss():
 
 
 
-
-
-
-
-
-    ## Home page
-    
+## Home page
     for i in Post.objects.filter(contacts=False):
         
         ## request to detali page 
         driver.get(i.source)
         time.sleep(1)
-        showContactButton = driver.find_element(By.CSS_SELECTOR, '#root > main > section.offer-section.grid > section.offer-side.offer-section-right.no-print > article > article > div.contacts-layout.offer-contacts > a')
+        # showContactButton = driver.find_element(By.CSS_SELECTOR, '#root > main > section.offer-section.grid > section.offer-side.offer-section-right.no-print > article > article > div.contacts-layout.offer-contacts > a')
+        print(driver.current_url, "     =====")
+        showContactButton = None
+        try:
+            showContactButton = driver.find_element(By.XPATH, '//*[@id="root"]/main/section[2]/section[3]/article/article/div[4]/a')
+        except Exception:
+            showContactButton = driver.find_element(By.CSS_SELECTOR, '#root > main > section.offer-section.grid > section.offer-side.offer-section-right.no-print > article > article > div.contacts-layout.offer-contacts > a')
+        except:
+            showContactButton = driver.find_element(By.XPATH, '//*[@id="root"]/main/section[2]/section[3]/article/article/div[3]/a')
+
+
         showContactButton.click()
 
-        time.sleep(2)
+        time.sleep(1)
         globalSoup = BeautifulSoup(driver.page_source, 'html.parser')
-        time.sleep(1)
+        time.sleep(0.5)
         contactss = globalSoup.find("div", {"class":"contacts"})
-        print(contactss.text)
-
-        i.body += contactss
-        i.contacts = True,
+        # print(contactss)
+        # print("== Type ", type(contactss))
+        # print(contactss.get_attribute_list("innerHTML"), "eeee")
+        innerhtml = "".join([str(x) for x in contactss.contents]) 
+        print(innerhtml)
+        overallBody = i.body + f"c - {innerhtml}"
+        i.body = overallBody    
+        i.contacts = True
         i.save()
-        time.sleep(1)
-        print("------------")
+        # time.sleep(1)
+        print("------------", i.contacts)
 
-
-
-
-
-
-
-
-
-
-@app.task #регистриуем таску
-def contacts():
-
+    context = {
+        "posts":Post.objects.all(),
+    }
     print(" --- some")

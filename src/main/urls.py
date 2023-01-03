@@ -9,7 +9,7 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
-    path('post/<pk>', views.PostDetailView.as_view(), name="post-detail"),
+    path('post/<pk>', views.PostDetailView.as_view(), name="post_details"),
     # path('details/<slug:slug>', views.PostDetailsView.as_view(), name='post_details'),
     # path('update/<slug:slug>', views.PostUpdateView.as_view(), name='post_update'),
     # path('category/<slug:slug>', views.CategorySortView.as_view(), name='category_sort'),

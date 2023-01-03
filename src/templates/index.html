@@ -7,16 +7,17 @@
 {% for post in object_list %}                    
 
 
-<div class="card mb-3 offset-md-2 col-md-8">
+<div class="card mb-3 offset-md-2 col-md-9">
     <div class="row no-gutters">
       <div class="col-md-4">
         <img src="https://s.backendservices.ru/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/71/03/710327/84cb3843bb.jpg" class="card-img" alt="...">
       </div>
-      <div class="col-md-7">
+      <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <a class="post-title" href="{% url 'main:post_details' post.id %}"><h6 class="card-title "> {{post.title}} </h6></a>
+          <p class="card-text"> <span class="font-weight-bold">{{post.price}}</span>  <span class="post-price-cur">{{post.priceCurrency}}      </span>    {{post.pricePerMeter}}  <span style="padding-left: 20px;"></span> </p>
+          <p class="card-text"> {{post.address}} </p>
+          <p class="card-text"><small class="text-muted">{{post.description|truncatewords:25}}</small> </p>
         </div>
       </div>
     </div>
@@ -102,7 +103,13 @@
         padding: 0% !important;
     }
 
-
+    .post-title{
+      font-size: 17px;
+      text-decoration: none;
+    }
+    .post-price-cur{
+      font-size: 12px;
+    }
 
 
 
