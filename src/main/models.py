@@ -36,12 +36,12 @@ class Post(models.Model):
 
 
 class PostImages(models.Model):
-	post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="images",blank=True, null=True)
 	image = models.ImageField(upload_to=None, height_field=None, blank=True, null=True)
 	url = models.URLField("Image url", max_length=400, blank=True, null=True)
 
 	def __str__(self):
-		return self.post.offerId
+		return self.post.title
 
 
 

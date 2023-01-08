@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 
 
 from domru.celery import app
-from .models import Post, Contact
+from .models import Post, Contact, PostImages
 from datetime import datetime
 
 import json
@@ -74,13 +74,13 @@ def countsDetector(link):
 
 
 
-@shared_task(name="testprint")
+# @shared_task(name="testprint")
 def testprint():
     print("===== TEST print ====")
     return True
 
 
-@shared_task(name="testprint2")
+# @shared_task(name="testprint2")
 def testprint2():
     print("===== LALALALAAL ====")
     return True
@@ -95,18 +95,44 @@ def testprint2():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # @app.task #регистриуем таску
-@shared_task(name="parse_posts")
+# @shared_task(name="parse_posts")
 def parse_posts():
 
-    for linkDaily in linksAll:
-        print()
-        print(" =========  ", linkDaily)
+    for linkDaily in linksDaily:
+        # print()
+        # print(" =========  ", linkDaily)
         numberOfPagesInLink = countsDetector(linkDaily)
-        print(numberOfPagesInLink)
+        # print(numberOfPagesInLink)
 
-        print("Number of pages  == ", numberOfPagesInLink)
-        # for pageCount in range(0, numberOfPagesInLink + 1):
+        # print("Number of pages  == ", numberOfPagesInLink)
         for pageCount in range(1, numberOfPagesInLink + 1):
 
             globalSoupStatus = requests.get(linkDaily.replace("page=1", f"page={pageCount}"))
@@ -154,17 +180,18 @@ def parse_posts():
                 offerPriceCurrency = offerPriceMainContainer.find("span", {"class":"offer-price-value"}).text
                 offerPricePerMeter = offerPriceMainContainer.find("span", {"class":"offer-price-period text-darkest-grey"}).text
 
+                imagesList = detailSoup.find_all("img", {"class":"offer-photo"})
 
                 offerSectionLeft = detailSoup.find("section", {"class":"offer-section-left grid"})
                 offerNear = offerSectionLeft.find("article", {"class":"offer-near"})
-                # tableCategoriesApartmentHome = offerSectionLeft.findAll("div", {"class":"table-categoty"})
                 videoPlayer = offerSectionLeft.find("section", {"class":"offer-info-videoplayer"})
                 offerMap = offerSectionLeft.find("article", {"class":"offer-map"})
                 
                 [aboutApartment, aboutHouse] = offerSectionLeft.findAll("div", {"class":"table-category"})
 
                 offerId = int(detailSoup.find("span", {"class":"breadcrumbs-current"}).text.split()[2])
-                print("ID", offerId, type(offerId))
+                
+                # print("ID", offerId, type(offerId))
 
 
 
@@ -185,12 +212,21 @@ def parse_posts():
                     "body":   f"{aboutApartment}{aboutHouse} <br> {offerNear} <br> {offerStatusViews}"
                     })
 
+                    print("POST == ", post)
+                    print("POST TYPE == ", type(post))
                     # Contact.objects.create(post_id=post)
+                    if post[1]:
+                        for image in imagesList:
+                            # print("Source == ",image['src'])
+                            postImage = PostImages.objects.create(
+                                post = post[0],
+                                url = image['src']
+                            )
 
-                    print("title - ", offerTitle)
-                    print("Id - ", offerId)
+                    # print("title - ", offerTitle)
+                    # print("Id - ", offerId)
                     count += 1
-                    print(" ---  Created Or Updated ---", count, pageCount)
+                    # print(" ---  Created Or Updated ---", count, pageCount)
                 except Exception as err:
                     count += 1
                     # print("---  Something went wrong --- ", count , pageCount)
@@ -199,6 +235,31 @@ def parse_posts():
 
 
     return "необязательная заглушка"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -292,7 +353,7 @@ def save_contacts():
         # time.sleep(1)
         print("------------", i.contacts)
 
-    context = {
-        "posts":Post.objects.all(),
-    }
+    # context = {
+    #     "posts":Post.objects.all(),
+    # }
     print(" --- some")

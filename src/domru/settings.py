@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     "main",
+    "rest_framework",
     "api",
     "ckeditor",
 ]
@@ -146,6 +147,7 @@ CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+ROKER_CONNECTION_TIMEOUT = 20
 
 
 

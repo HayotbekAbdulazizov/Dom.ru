@@ -172,36 +172,39 @@ class HomePageViewss(View):
 
 
 
-class HomePageViewsss(View):
+class HomePageView(View):
     
     def get(self,request):
         # Driver initialized
-        chrome_optio = webdriver.ChromeOptions()
-        chrome_optio.add_argument("--headless")
-        chrome_optio.add_argument("window-size=1920,1080")
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_optio)
-        # driver = webdriver.Chrome(options=chrome_optio)
+        # chrome_optio = webdriver.ChromeOptions()
+        # chrome_optio.add_argument("--headless")
+        # chrome_optio.add_argument("window-size=1920,1080")
+        # driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_optio)
+        # # driver = webdriver.Chrome(options=chrome_optio)
 
 
 
         
 
-        # Authorization
-        driver.get("https://domik65.ru/")    
-        print(driver.title)
+        # # Authorization
+        # driver.get("https://domik65.ru/")    
+        # print(driver.title)
 
-        btns = driver.find_elements(By.XPATH, '//*[@id="root"]/header[1]/div[1]/div/a')
-        btns[0].click()
-        time.sleep(3) #Error
+        # btns = driver.find_elements(By.XPATH, '//*[@id="root"]/header[1]/div[1]/div/a')
+        # btns[0].click()
+        # time.sleep(3) #Error
 
-        name_input = driver.find_element(By.XPATH, '//*[@id="login-form"]/input[3]')
-        password = driver.find_element(By.XPATH, '//*[@id="login-form"]/input[4]')
-        name_input.send_keys("9168157216")
-        password.send_keys("qwerty12345")
+        # name_input = driver.find_element(By.XPATH, '//*[@id="login-form"]/input[3]')
+        # password = driver.find_element(By.XPATH, '//*[@id="login-form"]/input[4]')
+        # name_input.send_keys("9168157216")
+        # password.send_keys("qwerty12345")
 
-        submit = driver.find_element(By.XPATH, '//*[@id="login-form"]/div[3]/input')
-        submit.submit()
-        time.sleep(1)
+        # submit = driver.find_element(By.XPATH, '//*[@id="login-form"]/div[4]/input')
+        
+        # # submit = driver.find_element(By.XPATH, '//*[@id="login-form"]/div[3]/input')
+
+        # submit.submit()
+        # time.sleep(1)
 
 
 
@@ -212,42 +215,42 @@ class HomePageViewsss(View):
 
     ## Home page
     
-        for i in Post.objects.filter(contacts=False):
+        # for i in Post.objects.filter(contacts=False):
             
-            ## request to detali page 
-            driver.get(i.source)
-            time.sleep(1)
-            # showContactButton = driver.find_element(By.CSS_SELECTOR, '#root > main > section.offer-section.grid > section.offer-side.offer-section-right.no-print > article > article > div.contacts-layout.offer-contacts > a')
-            print(driver.current_url, "     =====")
-            showContactButton = None
-            try:
-                showContactButton = driver.find_element(By.XPATH, '//*[@id="root"]/main/section[2]/section[3]/article/article/div[4]/a')
-            except Exception:
-                showContactButton = driver.find_element(By.CSS_SELECTOR, '#root > main > section.offer-section.grid > section.offer-side.offer-section-right.no-print > article > article > div.contacts-layout.offer-contacts > a')
-            except:
-                showContactButton = driver.find_element(By.XPATH, '//*[@id="root"]/main/section[2]/section[3]/article/article/div[3]/a')
+        #     ## request to detali page 
+        #     driver.get(i.source)
+        #     time.sleep(1)
+        #     # showContactButton = driver.find_element(By.CSS_SELECTOR, '#root > main > section.offer-section.grid > section.offer-side.offer-section-right.no-print > article > article > div.contacts-layout.offer-contacts > a')
+        #     print(driver.current_url, "     =====")
+        #     showContactButton = None
+        #     try:
+        #         showContactButton = driver.find_element(By.XPATH, '//*[@id="root"]/main/section[2]/section[3]/article/article/div[4]/a')
+        #     except Exception:
+        #         showContactButton = driver.find_element(By.CSS_SELECTOR, '#root > main > section.offer-section.grid > section.offer-side.offer-section-right.no-print > article > article > div.contacts-layout.offer-contacts > a')
+        #     except:
+        #         showContactButton = driver.find_element(By.XPATH, '//*[@id="root"]/main/section[2]/section[3]/article/article/div[3]/a')
 
 
-            showContactButton.click()
+        #     showContactButton.click()
 
-            time.sleep(1)
-            globalSoup = BeautifulSoup(driver.page_source, 'html.parser')
-            time.sleep(0.5)
-            contactss = globalSoup.find("div", {"class":"contacts"})
-            # print(contactss)
-            # print("== Type ", type(contactss))
-            # print(contactss.get_attribute_list("innerHTML"), "eeee")
-            innerhtml = "".join([str(x) for x in contactss.contents]) 
-            print(innerhtml)
-            overallBody = i.body + f"c - {innerhtml}"
-            i.body = overallBody    
-            i.contacts = True
-            i.save()
-            # time.sleep(1)
-            print("------------", i.contacts)
+        #     time.sleep(1)
+        #     globalSoup = BeautifulSoup(driver.page_source, 'html.parser')
+        #     time.sleep(0.5)
+        #     contactss = globalSoup.find("div", {"class":"contacts"})
+        #     # print(contactss)
+        #     # print("== Type ", type(contactss))
+        #     # print(contactss.get_attribute_list("innerHTML"), "eeee")
+        #     innerhtml = "".join([str(x) for x in contactss.contents]) 
+        #     print(innerhtml)
+        #     overallBody = i.body + f"c - {innerhtml}"
+        #     i.body = overallBody    
+        #     i.contacts = True
+        #     i.save()
+        #     # time.sleep(1)
+        #     print("------------", i.contacts)
 
         context = {
-            "posts":Post.objects.all(),
+            "object_list":Post.objects.all(),
         }
         return render(request, "index.html", context)
 
@@ -261,7 +264,7 @@ class HomePageViewsss(View):
 
 
 
-class HomePageView(View):
+class HomePageViewe(View):
 
     def get(self, request):
         posts = Post.objects.all()
@@ -282,8 +285,11 @@ class PostDetailView(View):
     # template_name = "details.html"
 
     def get(self, request, pk):
-
+        post = Post.objects.get(id=pk)
         context = {
-            "object":Post.objects.get(id=pk),
+            "object":post,
+            "images":PostImages.objects.filter(post=post)
         }
+        # Post.objects.all().delete()
+        # PostImages.objects.all().delete()
         return render(request, "postDetails.html", context)

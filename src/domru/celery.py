@@ -21,27 +21,27 @@ app.conf.beat_schedule = {
     # },
     'save_contacts': {
         'task': 'save_contacts',
-        # 'schedule': 30.0,
-        'schedule': crontab(minute="*/2"),
+        'schedule': 30.0,
+        # 'schedule': crontab(minute="*/3"),
 
     },
 
-    'parse_posts': {
-        'task': 'parse_posts',
-        # 'schedule': 30.0,
-        'schedule': crontab(hour="*/2"),
-    },
+    # 'parse_posts': {
+    #     'task': 'parse_posts',
+    #     'schedule': 30.0,
+    #     # 'schedule': crontab(minute="*/1"),
+    # },
 
-    'testprint': {
-        'task': 'testprint',
-        'schedule': 2.0,
+    # 'testprint': {
+    #     'task': 'testprint',
+    #     'schedule': 2.0,
 
-    },
-    'testprint2': {
-        'task': 'testprint2',
-        'schedule': 3.0,
+    # },
+    # 'testprint2': {
+    #     'task': 'testprint2',
+    #     'schedule': 3.0,
 
-    },
+    # },
     # 'add-every-30-seconds': {
     #     'task': 'movies.tasks.add',
     #     'schedule': 30.0,

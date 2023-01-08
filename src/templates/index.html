@@ -10,7 +10,13 @@
 <div class="card mb-3 offset-md-2 col-md-9">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img src="https://s.backendservices.ru/j/nq3trezxoHIhl3BTdzdtu9Qw.2801fda7/dom/p/71/03/710327/84cb3843bb.jpg" class="card-img" alt="...">
+        
+        {% if post.images.all.count %}
+        <img src="{{post.images.first.url}}" class="card-img" alt="..." >
+        {% else %}
+        <img src="https://s.backendservices.ru/j/nq3BrPnwpXoil3BTdzdtu9Qy.658f34c2/dom/p/71/05/710578/0e0354af03.jpg" alt="">
+        {% endif %}
+          
       </div>
       <div class="col-md-8">
         <div class="card-body">

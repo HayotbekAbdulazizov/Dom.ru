@@ -10,5 +10,6 @@ app_name = 'api'
 urlpatterns = [
 # API view
     path('post/', views.PostApiView.as_view(), name='postCreateView'),
+    path('post/contact/', views.PostContactApiView.as_view(), name='postContactCreateView'),
 
 ]
