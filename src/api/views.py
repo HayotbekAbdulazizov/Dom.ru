@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from main.models import Post, PostImages
 from .serializers import PostSerializer
 
+from django.shortcuts import get_object_or_404
 # generic view
 from rest_framework.generics import CreateAPIView, GenericAPIView, UpdateAPIView, RetrieveAPIView, DestroyAPIView
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin
@@ -101,9 +102,9 @@ class PostContactApiView(GenericAPIView):
    queryset = Post.objects.all()
 
    def get(self,request):
-      posts = Post.objects.filter(contacts=False).order_by("-published")
+      posts = Post.objects.filter(contacts=False).order_by("-published")[:20]
       serializer = PostSerializer(posts, many=True)
-      return Response(serializer.data) 
+      return Response(serializer.data)
 
 
 
@@ -116,3 +117,50 @@ class PostContactApiView(GenericAPIView):
       offerId = request.data['offerId']
 
       return Response(contactHtml)
+
+
+
+
+
+class PostContactDetailApiView(GenericAPIView):
+   serializer_class = PostSerializer
+   queryset = Post.objects.all()
+
+
+   def get(self,request,pk):
+      post = get_object_or_404(self.queryset, pk=pk)
+      serializer = PostSerializer(post)
+      return Response(serializer.data)
+
+
+
+
+
+
+   def post(self,request,pk):
+      print("=== IN POST ===")
+      print("PK = ", pk)
+
+
+      post = Post.objects.get(id=pk)
+      post_images = post.images.all()
+
+      # Previous Images Deletion
+      for i in post_images:
+         i.delete()
+
+      for i in request.data['images']:
+         print('NEW Image: ',i)
+         post_image = post.images.create(post=post, url=i).save()
+         print(post_image)
+      
+      
+      bodyHtml = post.body + request.data['contact']
+      post.body = bodyHtml
+
+
+
+      post.contacts = True
+      post.save()
+
+      return Response(request.data)

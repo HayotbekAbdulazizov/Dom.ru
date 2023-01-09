@@ -22,7 +22,7 @@
     <div class="large-12 columns">
       <div class="owl-carousel owl-theme">
         {% for image in object.images.all %}
-          <img class="item" style="padding:0; margin:0;" src="{{image.url}}" alt="" srcset=""> 
+          <img class="item post-image"  src="{{image.url}}" alt="" srcset=""> 
         {% endfor %}
       </div>
       </div>
@@ -31,7 +31,11 @@
 
 
 
-  <h4> {{ object.title}}   =={{object.images.all.count}}</h4>
+  <h4> {{ object.title}}</h4>
+          <p class="card-text"> <span class="font-weight-bold">{{object.price}}</span>  <span class="post-price-cur">{{object.priceCurrency}}      </span>    {{object.pricePerMeter}}  <span style="padding-left: 20px;"></span> </p>
+
+  <p class="offerAddress">{{object.address}} </p>
+  <p class="offerAddress">{{object.published}} </p>
   <a href="{{object.source}}">Оригинал</a>
 
   <br>
@@ -121,7 +125,10 @@
 
 
 <style>
-
+  .post-image{
+    width: auto;
+    object-fit: cover !important;
+  }
   .owl-prev, .owl-next{
       transform: scale(2);
   }
@@ -138,9 +145,27 @@
 
   span{
     font-size: 1.1rem;
-    font-weight: ;
     color: black;
   }
+
+  .contacts-header{
+    font-size: 20px !important;
+    font-weight: 600;
+  }
+  
+  .contacts-pb, .link-primary{
+    margin-left: 20px;
+  }
+
+  .description, .table-category, .contacts-pb, .contacts-header, .offerNear, .offerStatus{
+    margin-top: 20px;
+  }
+  .owl-nav, .owl-dots { display: block !important; }
+
+  .offerAddress{
+    margin-left: 5px;
+  }
+
 
   /* default styles here for older browsers. 
  I tend to go for a 600px - 960px width max but using percentages

@@ -172,8 +172,10 @@ class HomePageViewss(View):
 
 
 
-class HomePageView(View):
-    
+class HomePageViewprev(ListView):
+    paginate_by = 10 # add this
+
+
     def get(self,request):
         # Driver initialized
         # chrome_optio = webdriver.ChromeOptions()
@@ -293,3 +295,53 @@ class PostDetailView(View):
         # Post.objects.all().delete()
         # PostImages.objects.all().delete()
         return render(request, "postDetails.html", context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class HomePageView(ListView):
+    paginate_by = 10
+    template_name = "index.html"
+    model = Post
